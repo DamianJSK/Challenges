@@ -1,10 +1,10 @@
-package com.djsk.Challenges;
+package com.djsk.challenges;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-//@EnableJpaRepositories("com.djsk.Challenges.persistence.dao")
-//@EntityScan("com.djsk.Challenges.persistence.entity")
+//@EnableJpaRepositories("com.djsk.challenges.persistence.dao")
+//@EntityScan("com.djsk.challenges.persistence.entity")
 @SpringBootApplication
 public class ChallengesApplication {
 

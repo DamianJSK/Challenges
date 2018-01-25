@@ -1,7 +1,7 @@
-package com.djsk.Challenges.web.controller;
+package com.djsk.challenges.web.controller;
 
-import com.djsk.Challenges.business.service.IUserService;
-import com.djsk.Challenges.persistence.entity.User;
+import com.djsk.challenges.business.service.IUserService;
+import com.djsk.challenges.persistence.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

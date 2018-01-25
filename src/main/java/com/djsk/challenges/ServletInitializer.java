@@ -1,4 +1,4 @@
-package com.djsk.Challenges;
+package com.djsk.challenges;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;

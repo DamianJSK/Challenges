@@ -1,4 +1,4 @@
-package com.djsk.Challenges.persistence.entity;
+package com.djsk.challenges.persistence.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

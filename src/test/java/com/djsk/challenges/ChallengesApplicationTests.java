@@ -1,4 +1,4 @@
-package com.djsk.Challenges;
+package com.djsk.challenges;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

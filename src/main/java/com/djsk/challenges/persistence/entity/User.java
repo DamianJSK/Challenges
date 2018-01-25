@@ -1,4 +1,4 @@
-package com.djsk.Challenges.persistence.entity;
+package com.djsk.challenges.persistence.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Email;

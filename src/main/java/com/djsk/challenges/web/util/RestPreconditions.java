@@ -1,7 +1,7 @@
-package com.djsk.Challenges.web.util;
+package com.djsk.challenges.web.util;
 
-import com.djsk.Challenges.web.exception.ResourceAlreadyExistsException;
-import com.djsk.Challenges.web.exception.ResourceNotFoundException;
+import com.djsk.challenges.web.exception.ResourceAlreadyExistsException;
+import com.djsk.challenges.web.exception.ResourceNotFoundException;
 
 public final class RestPreconditions {
 

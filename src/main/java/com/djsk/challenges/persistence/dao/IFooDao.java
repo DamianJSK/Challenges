@@ -1,6 +1,6 @@
-package com.djsk.Challenges.persistence.dao;
+package com.djsk.challenges.persistence.dao;
 
-import com.djsk.Challenges.persistence.entity.Foo;
+import com.djsk.challenges.persistence.entity.Foo;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IFooDao extends JpaRepository<Foo, Long > {
