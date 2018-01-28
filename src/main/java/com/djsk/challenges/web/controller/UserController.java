@@ -7,13 +7,14 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/users")
+@RestController
+@RequestMapping(value = "/users")
 public class UserController {
 
     @Autowired
     IUserService userService;
 
-    @PostMapping
+    @PostMapping()
     public void create(@RequestBody User user){
         userService.create(user);
     }
