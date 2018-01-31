@@ -7,10 +7,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 //@ComponentScan("com.djsk.challenges.config")
-@EnableWebMvc
+//@EnableWebMvc
 public class WebConfig {
 
-    //When CommonsMultipartResolver bean is set POSTMAN upload not works,
+    //When CommonsMultipartResolver bean also is neede @EnableWebMvc annotation
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
