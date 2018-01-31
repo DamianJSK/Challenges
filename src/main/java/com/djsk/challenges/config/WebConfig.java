@@ -7,7 +7,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @Configuration
 //@ComponentScan("com.djsk.challenges.config")
-//@EnableWebMvc
+@EnableWebMvc
 public class WebConfig {
 
     //When CommonsMultipartResolver bean also is neede @EnableWebMvc annotation
