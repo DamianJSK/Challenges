@@ -4,6 +4,7 @@ import com.djsk.challenges.persistence.dao.IUserDao;
 import com.djsk.challenges.persistence.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -40,10 +41,6 @@ public class MyUserDetailsService implements UserDetailsService {
     }
 
     private static List<GrantedAuthority> getAuthorities (String role) {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        if(role != null) {
-            authorities.add(new SimpleGrantedAuthority(role));
-        }
-        return authorities;
+        return AuthorityUtils.createAuthorityList(role);
     }
 }
