@@ -1,13 +1,16 @@
 package com.djsk.challenges.persistence.entity;
 
+import com.djsk.challenges.business.service.tools.validator.ValidEmail;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name = "users")
+@Entity
+@Table(name = "users")
 public class User {
 
     @GeneratedValue(generator = "uuid")
@@ -17,8 +20,10 @@ public class User {
 
     String name;
 
-    @Email
+    @ValidEmail
     String email;
+
+    String password;
 
     public String getId() {
         return id;
@@ -42,5 +47,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
