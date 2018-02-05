@@ -1,13 +1,11 @@
 package com.djsk.challenges.persistence.entity;
 
 import com.djsk.challenges.business.service.tools.validator.ValidEmail;
+import com.djsk.challenges.persistence.enums.UserRole;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Email;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
@@ -24,6 +22,9 @@ public class User {
     String email;
 
     String password;
+
+    @Enumerated(EnumType.STRING)
+    UserRole userRole;
 
     public String getId() {
         return id;
@@ -55,5 +56,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public UserRole getUserRole() {
+        return userRole;
+    }
+
+    public void setUserRole(UserRole userRole) {
+        this.userRole = userRole;
     }
 }
