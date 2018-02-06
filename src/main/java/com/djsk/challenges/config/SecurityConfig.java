@@ -28,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             throws Exception {
         auth.authenticationProvider(authProvider());
 // Not works in memory authentication
-        //        auth.inMemoryAuthentication()
+//                auth.inMemoryAuthentication()
 //                .withUser("user1").password("user1Pass").roles("VIEWER");
     }
 
@@ -45,6 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout().logoutUrl("/logout");;
     }
 
+    //Problem with encrypt password - Spring Security, instead $2a$ should be $2b$
+    //look at: https://github.com/spring-projects/spring-security/issues/3320#issuecomment-330402864
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
