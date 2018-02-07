@@ -11,16 +11,21 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional
-public class MyUserDetailsService implements UserDetailsService {
+public class LoginUserDetailsService implements UserDetailsService {
 
     @Autowired
     private IUserDao userDao;
+
+    @Autowired
+    HttpServletRequest request;
+
     //
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
@@ -30,17 +35,13 @@ public class MyUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException(
                     "No user found with username: "+ email);
         }
-        boolean enabled = true;
-        boolean accountNonExpired = true;
-        boolean credentialsNonExpired = true;
-        boolean accountNonLocked = true;
-        return  new org.springframework.security.core.userdetails.User
-                (user.getEmail(), user.getPassword(), enabled, accountNonExpired,
-                        credentialsNonExpired, accountNonLocked,
-                        getAuthorities(user.getUserRole().toString()));
-    }
+        if(request.getSession().getAttribute("user") != null){
+            request.getSession().removeAttribute("user");
+        }
+//        String userAgent = request.getHeader("User-Agent");
+        request.getSession().setAttribute("user",user);
 
-    private static List<GrantedAuthority> getAuthorities (String role) {
-        return AuthorityUtils.createAuthorityList(role);
+        CustomUserDetails userDetails = new CustomUserDetails(user);
+        return  userDetails;
     }
 }

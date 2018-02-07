@@ -2,6 +2,7 @@ package com.djsk.challenges.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -18,5 +19,10 @@ public class WebConfig {
         return multipartResolver;
     }
 
+    //Needed to get HttpServletRequest, which is needed to get and set session attributes
+    @Bean
+    public RequestContextListener requestContextListener(){
+        return new RequestContextListener();
+    }
 
 }
