@@ -6,7 +6,9 @@ import com.djsk.challenges.persistence.entity.User;
 import com.djsk.challenges.web.exception.EmailExistsException;
 import com.djsk.challenges.web.exception.InvalidDataException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +16,8 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@SessionAttributes({"user"})
+//@Scope("session")
 @RequestMapping("/users")
 public class UserController {
 
@@ -30,6 +34,7 @@ public class UserController {
         return userService.findOne(idi);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping()
     public List<User> findAll(){
         return userService.findAll();
@@ -55,6 +60,12 @@ public class UserController {
             //This error should be configured to return correct message in body
             throw new InvalidDataException(result.getAllErrors().get(0).getDefaultMessage());
         }
+        return user;
+    }
+
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
+    @GetMapping("/current_user")
+    public User getCurrentUser(User user){
         return user;
     }
 }

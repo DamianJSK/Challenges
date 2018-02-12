@@ -5,4 +5,6 @@ import com.djsk.challenges.persistence.entity.User;
 
 public interface IUserService extends IOperations<User, String>{
     User createUserFromUserDto(UserDto userDto);
+
+    User getCurrentUser();
 }

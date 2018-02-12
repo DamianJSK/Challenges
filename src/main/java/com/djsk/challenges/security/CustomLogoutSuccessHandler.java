@@ -10,15 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//Dont know for what is this class needed
-//@Component
-//public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler
-//        implements LogoutSuccessHandler {
-//
-//    CustomLogoutSuccessHandler() {
-//    }
-//
-//    @Override
-//    public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-//    }
-//}
+//Now after logout, instead 404 code we have 200 code, 404 code were received after unsuccessful redirection to non-existing site
+@Component
+public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler
+        implements LogoutSuccessHandler {
+
+    CustomLogoutSuccessHandler() {
+    }
+
+    @Override
+    public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+    }
+}

@@ -6,9 +6,12 @@ import com.djsk.challenges.persistence.dao.IUserDao;
 import com.djsk.challenges.persistence.dto.UserDto;
 import com.djsk.challenges.persistence.entity.User;
 import com.djsk.challenges.persistence.enums.UserRole;
+import com.djsk.challenges.security.CustomUserDetails;
 import com.djsk.challenges.web.exception.EmailExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -53,5 +56,11 @@ public class UserService extends AbstractIOService<User, String> implements IUse
         return false;
     }
 
+    @Override
+    public User getCurrentUser() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        CustomUserDetails springSecurityUser = (CustomUserDetails) securityContext.getAuthentication().getPrincipal();
+        return springSecurityUser.getUser();
+    }
 
 }

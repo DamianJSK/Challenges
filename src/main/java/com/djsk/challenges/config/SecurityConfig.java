@@ -1,9 +1,12 @@
 package com.djsk.challenges.config;
 
 //import com.djsk.challenges.security.CustomLogoutSuccessHandler;
+import com.djsk.challenges.security.CustomLogoutSuccessHandler;
 import com.djsk.challenges.security.LoginUserDetailsService;
 //import com.djsk.challenges.security.MySavedRequestAwareAuthenticationSuccessHandler;
 //import com.djsk.challenges.security.RestAuthenticationEntryPoint;
+import com.djsk.challenges.security.MySavedRequestAwareAuthenticationSuccessHandler;
+import com.djsk.challenges.security.RestAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,14 +29,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private LoginUserDetailsService userDetailsService;
 
-//    @Autowired
-//    private CustomLogoutSuccessHandler logoutSuccessHandler;
+    @Autowired
+    private CustomLogoutSuccessHandler logoutSuccessHandler;
 
-//    @Autowired
-//    private MySavedRequestAwareAuthenticationSuccessHandler authenticationSuccessHandler;
+    @Autowired
+    private MySavedRequestAwareAuthenticationSuccessHandler authenticationSuccessHandler;
 
-//    @Autowired
-//    RestAuthenticationEntryPoint restAuthenticationEntryPoint;
+    @Autowired
+    RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
@@ -47,9 +50,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-//                .exceptionHandling()
-//                .authenticationEntryPoint(restAuthenticationEntryPoint)
-//                .and()
+                .exceptionHandling()
+                .authenticationEntryPoint(restAuthenticationEntryPoint)
+                .and()
                 .authorizeRequests()
                 .antMatchers("/login**").anonymous()
                 .anyRequest().authenticated()
@@ -59,14 +62,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
 //                .defaultSuccessUrl("/main/webapp/WEB-INF/home.html")
                 //
-//                .successHandler(authenticationSuccessHandler)
-//                .failureHandler(new SimpleUrlAuthenticationFailureHandler())
+                .successHandler(authenticationSuccessHandler)
+                .failureHandler(new SimpleUrlAuthenticationFailureHandler())
                 .and()
-//                .userDetailsService(userDetailsService)
+                //Developers should override this method when changing the instance of userDetailsServiceBean(). - from spring doc
+                .userDetailsService(userDetailsService)
                 .logout()
-//                .logoutSuccessHandler(logoutSuccessHandler)
-//                .deleteCookies("JSESSIONID")
-//                .invalidateHttpSession(true)
+                .logoutSuccessHandler(logoutSuccessHandler)
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(true)
                 .logoutUrl("/logout");
     }
 
