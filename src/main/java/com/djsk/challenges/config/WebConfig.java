@@ -5,11 +5,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 @Configuration
 //@ComponentScan("com.djsk.challenges.config")
+//Enable configuration behind the MVC Java config
 @EnableWebMvc
-public class WebConfig {
+//Needs extends WebMvcConfigurerAdapter for swagger, under the hood injected to EnableWebMvc support
+public class WebConfig extends WebMvcConfigurerAdapter {
 
     //When CommonsMultipartResolver bean also is neede @EnableWebMvc annotation
     @Bean(name = "multipartResolver")
@@ -25,4 +29,13 @@ public class WebConfig {
         return new RequestContextListener();
     }
 
+    //Needed for swagger
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("swagger-ui.html")
+                .addResourceLocations("classpath:/META-INF/resources/");
+
+        registry.addResourceHandler("/webjars/**")
+                .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
 }

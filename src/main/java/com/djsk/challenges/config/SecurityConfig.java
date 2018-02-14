@@ -14,6 +14,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -52,9 +53,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .exceptionHandling()
-                .authenticationEntryPoint(restAuthenticationEntryPoint)
-                .and()
+                //must disable if want use swagger (3 lines) in browser
+//                .exceptionHandling()
+//                .authenticationEntryPoint(restAuthenticationEntryPoint)
+//                .and()
                 .authorizeRequests()
                 .antMatchers("/login**").permitAll()
                 .anyRequest().authenticated()
@@ -62,6 +64,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //Eliminates error from Cross-site request forgery ()
                 .csrf().disable()
                 .formLogin()
+                //not works
 //                .defaultSuccessUrl("/main/webapp/WEB-INF/home.html")
                 //
                 .successHandler(authenticationSuccessHandler)
@@ -75,6 +78,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true)
                 .logoutUrl("/logout");
     }
+
+    //Needed for swagger, if I want get without any authorization
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring().antMatchers("/v2/api-docs/**");
+//        web.ignoring().antMatchers("/swagger.json");
+//        web.ignoring().antMatchers("/swagger-ui.html");
+//    }
 
     //Problem with encrypt password - Spring Security, instead $2a$ should be $2b$
     //look at: https://github.com/spring-projects/spring-security/issues/3320#issuecomment-330402864
@@ -94,7 +105,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return authProvider;
     }
 
-    //Is this needed?
+    //Is this needed? possible resolve problem with login after login to app
 //    @Bean
 //    public MySavedRequestAwareAuthenticationSuccessHandler mySuccessHandler(){
 //        return new MySavedRequestAwareAuthenticationSuccessHandler();
