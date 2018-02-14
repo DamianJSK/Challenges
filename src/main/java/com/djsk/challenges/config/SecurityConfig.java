@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -21,7 +22,8 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 
 @Configuration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
+//This annotation is used to enable work with @Pre... annotations and hasAuthority option
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 //@ComponentScan("com.djsk.challenges.security")
 //@EnableJpaAuditing(auditorAwareRef = "springSecurityAuditorAware")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -42,9 +44,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
         auth.authenticationProvider(authProvider());
-// Not works in memory authentication
+// in memory authentication
 //                auth.inMemoryAuthentication()
-//                .withUser("user1").password("user1Pass").roles("VIEWER");
+//                .withUser("memory@mem.eu").password("password").roles("VIEWER");
     }
 
     @Override
@@ -54,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/login**").anonymous()
+                .antMatchers("/login**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 //Eliminates error from Cross-site request forgery ()

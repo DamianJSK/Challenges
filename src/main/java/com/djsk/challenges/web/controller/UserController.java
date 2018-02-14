@@ -50,6 +50,7 @@ public class UserController {
         userService.delete(userService.findOne(idi));
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/register_user")
     public User registerUser(@RequestBody @Valid UserDto userDto, BindingResult result){
