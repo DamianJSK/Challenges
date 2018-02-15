@@ -1,10 +1,7 @@
 package com.djsk.challenges.config;
 
-//import com.djsk.challenges.security.CustomLogoutSuccessHandler;
 import com.djsk.challenges.security.CustomLogoutSuccessHandler;
 import com.djsk.challenges.security.LoginUserDetailsService;
-//import com.djsk.challenges.security.MySavedRequestAwareAuthenticationSuccessHandler;
-//import com.djsk.challenges.security.RestAuthenticationEntryPoint;
 import com.djsk.challenges.security.MySavedRequestAwareAuthenticationSuccessHandler;
 import com.djsk.challenges.security.RestAuthenticationEntryPoint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,6 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -79,7 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout");
     }
 
-    //Needed for swagger, if I want get without any authorization
+    //Needed for swagger, if I want get without any authorization, omits spring security
 //    @Override
 //    public void configure(WebSecurity web) throws Exception {
 //        web.ignoring().antMatchers("/v2/api-docs/**");
@@ -105,7 +101,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return authProvider;
     }
 
-    //Is this needed? possible resolve problem with login after login to app
+    //Is this needed? possible resolve problem with login after login to app. Not its autowired, look at top of code
 //    @Bean
 //    public MySavedRequestAwareAuthenticationSuccessHandler mySuccessHandler(){
 //        return new MySavedRequestAwareAuthenticationSuccessHandler();

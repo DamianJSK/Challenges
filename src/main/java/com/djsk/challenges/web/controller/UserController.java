@@ -64,7 +64,7 @@ public class UserController {
         return user;
     }
 
-    @PreAuthorize("hasAnyAuthority('ADMIN')")
+//    @PreAuthorize("hasAnyAuthority('ADMIN')")
     @GetMapping("/current_user")
     public User getCurrentUser(User user){
         return user;
